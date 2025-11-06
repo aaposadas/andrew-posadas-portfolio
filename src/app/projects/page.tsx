@@ -58,7 +58,7 @@ export default function Works() {
       >
         <div className="relative h-48 w-full overflow-hidden bg-gray-900">
           <Image
-            src={"/bookinventory.png"}
+            src={"/book-inv.png"}
             alt="BookInventory Project"
             width={800}
             height={400}
