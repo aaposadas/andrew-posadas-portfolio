@@ -40,7 +40,7 @@ h4 {
 
 @layer components {
   .card-base {
-    @apply p-8 flex gap-8 rounded-2xl border border-gray-900/50 bg-linear-to-br from-zinc-800/50 to-zinc-900;
+    @apply p-8 flex gap-8 rounded-2xl border border-gray-900/50 bg-linear-to-br from-zinc-800 to-zinc-950;
   }
 }
 @keyframes scroll {
