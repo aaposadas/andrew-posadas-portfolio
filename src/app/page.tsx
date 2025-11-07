@@ -9,7 +9,7 @@ import ExperienceCard from "@/components/home/ExperienceCard";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-zinc-950 p-4 overflow-x-hidden">
+    <main className=" bg-zinc-950 p-4">
       <div className="max-w-6xl mx-auto space-y-4">
         {/* First row */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
