@@ -42,15 +42,190 @@ h4 {
   .card-base {
     @apply p-8 flex gap-8 rounded-2xl border border-gray-900/50 bg-linear-to-br from-zinc-800 to-zinc-950;
   }
-}
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
+
+  .sprite-avatar {
+    @apply aspect-square w-full overflow-hidden rounded-xl border border-zinc-700/70 bg-white shadow-inner shadow-black/30;
+    transition: border-color 180ms ease, box-shadow 180ms ease,
+      transform 180ms ease;
   }
-  100% {
-    transform: translateX(-50%);
+
+  .sprite-avatar__sheet {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url("/andrew-idle.png");
+    background-repeat: no-repeat;
+    background-size: 800% 100%;
+    background-position: 0 0;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    animation: sprite-cycle 2.2s steps(7, end) infinite;
+  }
+
+  .sprite-avatar--thinking {
+    @apply border-amber-200/80 shadow-amber-200/10;
+  }
+
+  .sprite-avatar--thinking .sprite-avatar__sheet {
+    background-image: url("/andrew-thinking.png");
+  }
+
+  .sprite-avatar--speaking {
+    @apply border-green-200/80 shadow-green-300/20;
+  }
+
+  .sprite-avatar--speaking .sprite-avatar__sheet {
+    background-image: url("/andrew-speaking.png");
+    background-size: 400% 100%;
+    animation: sprite-cycle 0.55s steps(3, end) infinite;
+    background-position: 0 0;
+  }
+
+  .sprite-avatar--wave {
+    @apply border-green-200/80 shadow-green-300/20;
+  }
+
+  .sprite-avatar--wave .sprite-avatar__sheet {
+    background-image: url("/andrew-wave.png");
+    background-size: 800% 100%;
+    animation: sprite-cycle 1.1s steps(7, end) infinite;
+    background-position: 0 0;
+  }
+
+  .sprite-avatar--look-left .sprite-avatar__sheet {
+    background-image: url("/andrew-idle-left.png");
+  }
+
+  .sprite-avatar--error {
+    @apply border-red-300/80 shadow-red-300/10;
+  }
+
+  .sprite-avatar--error .sprite-avatar__sheet {
+    background-image: url("/andrew-error.png");
+  }
+
+  .ask-andrew-card {
+    @apply flex h-full flex-col gap-5 overflow-hidden rounded-2xl border border-gray-900/50 bg-linear-to-br from-zinc-800 to-zinc-950 p-8;
+  }
+
+  .ask-andrew-avatar {
+    @apply flex flex-col gap-4 sm:flex-row sm:items-center;
+  }
+
+  .ask-andrew-avatar .sprite-avatar {
+    @apply w-32 shrink-0 sm:w-36 lg:w-40;
+  }
+
+  .ask-andrew-chat {
+    @apply flex min-h-0 flex-1 flex-col gap-4;
+  }
+
+  .ask-andrew-chat-top {
+    @apply flex min-h-6 items-center justify-between text-[0.68rem] uppercase tracking-[0.16em] text-zinc-500;
+  }
+
+  .ask-andrew-session-actions {
+    @apply flex items-center gap-2;
+  }
+
+  .ask-andrew-quota {
+    @apply flex items-center gap-1;
+  }
+
+  .ask-andrew-quota-label {
+    @apply min-w-10 text-right text-[0.62rem] tracking-[0.08em] text-zinc-500;
+  }
+
+  .ask-andrew-quota__pip {
+    @apply size-1.5 rounded-sm border border-zinc-700 bg-zinc-900;
+  }
+
+  .ask-andrew-quota__pip--available {
+    @apply border-green-300/70 bg-green-300;
+  }
+
+  .ask-andrew-technical-notes {
+    @apply flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-zinc-800/80 py-2 text-[0.65rem] uppercase tracking-[0.1em] text-zinc-500;
+  }
+
+  .ask-andrew-reset {
+    @apply grid size-7 cursor-pointer place-items-center rounded-lg border border-zinc-700/80 bg-black/30 text-zinc-400 transition hover:border-green-300/60 hover:text-green-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-200;
+  }
+
+  .ask-andrew-messages {
+    @apply flex min-h-44 flex-1 flex-col gap-3 overflow-y-auto pr-1;
+    scrollbar-color: rgb(134 239 172 / 0.65) rgb(39 39 42 / 0.55);
+    scrollbar-width: thin;
+  }
+
+  .ask-andrew-messages::-webkit-scrollbar {
+    width: 0.65rem;
+  }
+
+  .ask-andrew-messages::-webkit-scrollbar-track {
+    background: rgb(39 39 42 / 0.55);
+    border-radius: 999px;
+  }
+
+  .ask-andrew-messages::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgb(187 247 208 / 0.85),
+      rgb(134 239 172 / 0.6)
+    );
+    border: 2px solid rgb(24 24 27);
+    border-radius: 999px;
+  }
+
+  .ask-andrew-messages::-webkit-scrollbar-thumb:hover {
+    background: rgb(187 247 208 / 0.9);
+  }
+
+  .ask-andrew-message {
+    @apply max-w-[92%] rounded-xl border px-4 py-3 text-sm leading-relaxed;
+  }
+
+  .ask-andrew-message--andrew {
+    @apply self-start border-zinc-700/70 bg-zinc-900/80 text-zinc-100;
+  }
+
+  .ask-andrew-message--visitor {
+    @apply self-end border-green-300/40 bg-green-300 text-black;
+  }
+
+  .ask-andrew-prompts {
+    @apply grid grid-cols-1 gap-2 sm:grid-cols-2;
+  }
+
+  .ask-andrew-chip {
+    @apply flex min-h-10 cursor-pointer items-center justify-between gap-2 rounded-lg border border-zinc-700/80 bg-black/30 px-3 py-2 text-left text-xs text-zinc-300 transition hover:border-green-300/60 hover:text-white disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .ask-andrew-form {
+    @apply flex items-center gap-2 rounded-xl border border-zinc-700/80 bg-black/40 p-2;
+  }
+
+  .ask-andrew-form input {
+    @apply min-w-0 flex-1 bg-transparent px-2 text-sm text-white outline-none placeholder:text-zinc-500 disabled:opacity-60;
+  }
+
+  .ask-andrew-form button {
+    @apply grid size-10 shrink-0 cursor-pointer place-items-center rounded-lg bg-green-300 text-black transition hover:bg-green-200 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400;
   }
 }
-.animate-scroll {
-  animation: scroll 20s linear infinite;
+
+@keyframes sprite-cycle {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprite-avatar__sheet {
+    animation: none;
+    background-position: 0 0;
+  }
 }
