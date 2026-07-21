@@ -8,26 +8,26 @@ export default function Navbar() {
 
   const links = [
     { href: "/", label: "Home" },
-    { href: "/experience", label: "Experience" },
-    { href: "/projects", label: "Projects" },
+    { href: "/about", label: "About" },
+    { href: "/services", label: "Services" },
     { href: "/contact", label: "Contact" },
   ];
 
   return (
     <nav className="w-full">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-center items-center h-16">
-          <div className="flex lg:space-x-8">
+        <div className="flex h-16 items-center justify-center">
+          <div className="flex gap-1 sm:gap-3 lg:gap-6">
             {links.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-2 font-medium transition-colors ${
+                  className={`px-3 py-2 text-sm font-medium transition-colors ${
                     isActive
-                      ? "text-white font-semibold"
-                      : "text-zinc-400 hover:text-zinc-700"
+                      ? "text-white"
+                      : "text-zinc-400 hover:text-green-200"
                   }`}
                 >
                   {link.label}
