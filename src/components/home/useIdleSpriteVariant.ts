@@ -32,6 +32,8 @@ export function useIdleSpriteVariant(isEnabled: boolean) {
     };
 
     if (!isEnabled) {
+      // Reset any active idle animation before this hook becomes inactive.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIdleVariant(null);
       clearIdleTimers();
       return;
