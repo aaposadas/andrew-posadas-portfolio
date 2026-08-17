@@ -212,6 +212,83 @@ h4 {
   .ask-andrew-form button {
     @apply grid size-10 shrink-0 cursor-pointer place-items-center rounded-lg bg-green-300 text-black transition hover:bg-green-200 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400;
   }
+
+  .projects-kicker {
+    @apply flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/80;
+  }
+
+  .projects-section-heading {
+    @apply flex flex-col gap-4 border-b border-zinc-800 pb-5 sm:flex-row sm:items-end sm:justify-between;
+  }
+
+  .projects-section-heading h2 {
+    @apply mt-2 text-2xl tracking-[-0.035em] text-white sm:text-3xl;
+  }
+
+  .projects-section-heading > p {
+    @apply max-w-xs text-sm leading-6 text-zinc-400;
+  }
+
+  .projects-section-heading--archive {
+    @apply items-start;
+  }
+
+  .project-card {
+    @apply relative isolate flex min-h-[25rem] overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900 transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-200 focus-visible:ring-offset-4 focus-visible:ring-offset-zinc-950;
+  }
+
+  .project-card:hover {
+    @apply -translate-y-1 border-green-200/40 shadow-2xl shadow-black/30;
+  }
+
+  .project-card__image {
+    @apply absolute inset-0 bg-cover bg-center transition duration-700 ease-out;
+  }
+
+  .project-card:hover .project-card__image {
+    transform: scale(1.06);
+  }
+
+  .project-card__wash {
+    @apply absolute inset-0;
+    background: linear-gradient(180deg, rgb(9 9 11 / 0.24) 0%, rgb(9 9 11 / 0.42) 36%, rgb(9 9 11 / 0.96) 100%);
+  }
+
+  .project-card__content {
+    @apply relative z-10 flex min-h-[25rem] w-full flex-col p-6 sm:p-7;
+  }
+
+  .project-card__eyebrow {
+    @apply max-w-[15rem] text-[0.65rem] font-bold uppercase tracking-[0.16em] text-white/75;
+  }
+
+  .project-card h2 {
+    @apply max-w-md text-3xl tracking-[-0.04em] text-white;
+  }
+
+  .project-card__description {
+    @apply mt-3 max-w-lg text-sm leading-6 text-zinc-200;
+  }
+
+  .project-card__tags {
+    @apply mt-5 flex flex-wrap gap-2;
+  }
+
+  .project-card__tags li {
+    @apply rounded-full border border-white/20 bg-black/25 px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-zinc-100 backdrop-blur-sm;
+  }
+
+  .project-card:not(.project-card--featured) {
+    @apply min-h-[22rem] rounded-2xl;
+  }
+
+  .project-card:not(.project-card--featured) .project-card__content {
+    @apply min-h-[22rem] p-6;
+  }
+
+  .project-card:not(.project-card--featured) h2 {
+    @apply text-2xl;
+  }
 }
 
 @keyframes sprite-cycle {

@@ -1,152 +1,125 @@
-import Image from "next/image";
 import Link from "next/link";
-import { FolderCode } from "lucide-react";
+
+type Project = {
+  title: string;
+  eyebrow: string;
+  description: string;
+  href: string;
+  image: string;
+  imagePosition?: string;
+  tags: string[];
+  featured?: boolean;
+};
+
+const projects: Project[] = [
+  {
+    title: "Templo Siloé",
+    eyebrow: "Live production site · Ozona, Texas",
+    description:
+      "A welcoming bilingual church presence that makes worship, prayer, family ministry, giving, and planning a visit easy to discover.",
+    href: "https://templosiloe.org",
+    image: "/templosiloe.png",
+    tags: ["Bilingual", "Community", "Giving", "Responsive"],
+    featured: true,
+  },
+  {
+    title: "Brandon to Japan",
+    eyebrow: "Live production site · Missionary support",
+    description:
+      "A warm, editorial home for Brandon Carrasco’s journey to Japan—bringing updates, prayer needs, and partnership opportunities into one clear experience.",
+    href: "https://brandontojapan.org",
+    image: "/brandontojapan.jpg",
+    imagePosition: "center 28%",
+    tags: ["Storytelling", "Newsletter", "Support", "Mobile-first"],
+    featured: true,
+  },
+  {
+    title: "Catfe",
+    eyebrow: "Full-stack commerce",
+    description:
+      "An e-commerce experience with payment processing, authentication, and a polished product-first interface.",
+    href: "https://github.com/aaposadas/stripe-estore-app",
+    image: "/catfe.png",
+    tags: ["Svelte 5", "PostgreSQL", "Stripe API", "Auth"],
+  },
+  {
+    title: "BookInventory",
+    eyebrow: "Inventory management",
+    description:
+      "A full-stack catalog and inventory system with Google Books discovery and user authentication.",
+    href: "https://github.com/aaposadas/book-inventory-app",
+    image: "/book-inv.png",
+    tags: ["Angular 19", "ASP.NET Core", "MongoDB", "Google Books"],
+  },
+  {
+    title: "Andrew Was Here",
+    eyebrow: "Content platform",
+    description:
+      "A modern CMS-powered blog that pairs expressive motion with a flexible editorial workflow.",
+    href: "https://github.com/aaposadas/andrew-was-here-blog",
+    image: "/blogsite.png",
+    tags: ["Next.js", "Tailwind CSS", "Contentful", "Lottie"],
+  },
+];
+
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <Link
+      href={project.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`project-card group ${project.featured ? "project-card--featured" : ""}`}
+    >
+      <div
+        className="project-card__image"
+        style={{
+          backgroundImage: `url(${project.image})`,
+          backgroundPosition: project.imagePosition ?? "center",
+        }}
+      />
+      <div className="project-card__wash" />
+      <div className="project-card__content">
+        <p className="project-card__eyebrow">{project.eyebrow}</p>
+        <div className="mt-auto">
+          <h2>{project.title}</h2>
+          <p className="project-card__description">{project.description}</p>
+          <ul className="project-card__tags" aria-label={`${project.title} capabilities`}>
+            {project.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 export default function Works() {
+  const featured = projects.filter((project) => project.featured);
+  const archive = projects.filter((project) => !project.featured);
+
   return (
-    <main className="grid grid-cols-1 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
-      <div className="lg:col-span-6 flex flex-row items-center justify-center gap-4">
-        <FolderCode className="text-green-300" size={32} />
-        <h1>My Projects</h1>
-      </div>
+    <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+      <section aria-labelledby="production-heading">
+        <div className="projects-section-heading">
+          <div>
+            <p className="projects-kicker">On the web</p>
+            <h2 id="production-heading">Featured production work</h2>
+          </div>
+          <p>Live, public-facing experiences built to be useful every day.</p>
+        </div>
+        <div className="mt-6 grid gap-5 lg:grid-cols-2">{featured.map((project) => <ProjectCard key={project.title} project={project} />)}</div>
+      </section>
 
-      <Link
-        href="https://github.com/aaposadas/stripe-estore-app"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="lg:col-span-3 hover:scale-102 col-span-1 card-base min-w-0 group hover:border-green-300/50 transition-all overflow-hidden p-0 relative min-h-[280px] sm:min-h-80 border-gray-800/30"
-      >
-        {/* Background image */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url(/catfe.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/70" />
-
-        {/* Content */}
-        <div className="relative p-6 flex flex-col justify-end min-h-[280px] sm:min-h-80">
-          <h4 className="text-xl font-bold text-white mb-2 drop-shadow-lg">
-            Catfe: E-Commerce Platform
-          </h4>
-          <p className="text-gray-100 text-sm mb-4 drop-shadow">
-            Full-stack e-commerce solution with payment processing and
-            authentication
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Svelte 5
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              PostgreSQL
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Stripe API
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Authentication
-            </span>
+      <section className="mt-16 sm:mt-24" aria-labelledby="archive-heading">
+        <div className="projects-section-heading projects-section-heading--archive">
+          <div>
+            <p className="projects-kicker">More work</p>
+            <h2 id="archive-heading">Product experiments &amp; applications</h2>
           </div>
         </div>
-      </Link>
-
-      <Link
-        href="https://github.com/aaposadas/book-inventory-app"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="lg:col-span-3 hover:scale-102 col-span-1 card-base min-w-0 group hover:border-green-300/50 transition-all overflow-hidden p-0 relative min-h-[280px] sm:min-h-80 border-gray-800/30"
-      >
-        {/* Background image */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url(/book-inv.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/70" />
-
-        {/* Content */}
-        <div className="relative p-6 flex flex-col justify-end min-h-[280px] sm:min-h-80]">
-          <h4 className="text-xl font-bold text-white mb-2 drop-shadow-lg">
-            BookInventory: Full-stack Web App
-          </h4>
-          <p className="text-gray-100 text-sm mb-4 drop-shadow">
-            Inventory management system with Google Books API integration and
-            user authentication
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Angular 19
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              ASP.NET Core 8
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              MongoDB
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Google Books API
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Bootstrap
-            </span>
-          </div>
-        </div>
-      </Link>
-
-      <Link
-        href="https://github.com/aaposadas/andrew-was-here-blog"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="lg:col-span-3 hover:scale-102 col-span-1 card-base min-w-0 group hover:border-green-300/50 transition-all overflow-hidden p-0 relative min-h-[280px] sm:min-h-80 border-gray-800/30"
-      >
-        {/* Background image */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url(/blogsite.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/70" />
-
-        {/* Content */}
-        <div className="relative p-6 flex flex-col justify-end min-h-[280px] sm:min-h-80">
-          <h4 className="text-xl font-bold text-white mb-2 drop-shadow-lg">
-            AndrewWasHere: CMS Blog Site
-          </h4>
-          <p className="text-gray-100 text-sm mb-4 drop-shadow">
-            Modern blog platform with headless CMS integration and smooth
-            animations
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Next.js 13
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Tailwind CSS
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Lottie Animations
-            </span>
-            <span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm text-gray-100 rounded border border-gray-500">
-              Contentful CMS
-            </span>
-          </div>
-        </div>
-      </Link>
+        <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{archive.map((project) => <ProjectCard key={project.title} project={project} />)}</div>
+      </section>
     </main>
   );
 }
