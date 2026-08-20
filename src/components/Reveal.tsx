@@ -9,7 +9,11 @@ type RevealProps = {
 };
 
 type RevealGroupProps = RevealProps & {
-  as?: "div" | "dl";
+  as?: "div" | "dl" | "ol" | "ul";
+};
+
+type RevealItemProps = RevealProps & {
+  as?: "div" | "li";
 };
 
 const revealTransition = {
@@ -39,7 +43,14 @@ export function RevealGroup({
   as = "div",
 }: RevealGroupProps) {
   const prefersReducedMotion = useReducedMotion();
-  const MotionElement = as === "dl" ? motion.dl : motion.div;
+  const MotionElement =
+    as === "dl"
+      ? motion.dl
+      : as === "ol"
+        ? motion.ol
+        : as === "ul"
+          ? motion.ul
+          : motion.div;
 
   return (
     <MotionElement
@@ -54,11 +65,12 @@ export function RevealGroup({
   );
 }
 
-export function RevealItem({ children, className }: RevealProps) {
+export function RevealItem({ children, className, as = "div" }: RevealItemProps) {
   const prefersReducedMotion = useReducedMotion();
+  const MotionElement = as === "li" ? motion.li : motion.div;
 
   return (
-    <motion.div
+    <MotionElement
       className={className}
       variants={
         prefersReducedMotion
@@ -70,6 +82,6 @@ export function RevealItem({ children, className }: RevealProps) {
       }
     >
       {children}
-    </motion.div>
+    </MotionElement>
   );
 }

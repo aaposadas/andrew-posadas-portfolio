@@ -3,6 +3,7 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { Facebook, Github, Instagram, Linkedin } from "lucide-react";
+import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 
 const socialLinks = [
   {
@@ -61,7 +62,8 @@ export default function Contact() {
   return (
     <main className="bg-zinc-950 px-4 pb-16 sm:px-6 sm:pb-24">
       <section className="mx-auto max-w-6xl pt-4 sm:pt-6">
-        <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950 p-7 sm:p-10 lg:p-12">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950 p-7 sm:p-10 lg:p-12">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgb(134_239_172_/_0.16),transparent_20rem)]" />
           <div className="relative z-10 max-w-3xl">
             <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
@@ -75,11 +77,14 @@ export default function Contact() {
               idea that involves technology, I&apos;d be glad to hear from you.
             </p>
           </div>
-        </div>
+          </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-5 pt-16 sm:pt-24 lg:grid-cols-12">
-        <aside className="relative isolate overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 via-zinc-900 to-green-950/25 p-7 sm:p-8 lg:col-span-4">
+        <RevealGroup className="contents">
+          <RevealItem className="lg:col-span-4">
+            <aside className="relative isolate h-full overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 via-zinc-900 to-green-950/25 p-7 sm:p-8">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-20 -top-28 size-96 rounded-full border border-green-200/20"
@@ -126,12 +131,14 @@ export default function Contact() {
               </ul>
             </div>
           </div>
-        </aside>
+            </aside>
+          </RevealItem>
 
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-8 lg:col-span-8"
-        >
+          <RevealItem className="lg:col-span-8">
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-8"
+            >
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
             Send a message
           </p>
@@ -225,7 +232,9 @@ export default function Contact() {
               )}
             </div>
           </div>
-        </form>
+            </form>
+          </RevealItem>
+        </RevealGroup>
       </section>
     </main>
   );
