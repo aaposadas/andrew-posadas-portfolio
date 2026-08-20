@@ -105,47 +105,27 @@ h4 {
   }
 
   .ask-andrew-card {
-    @apply flex h-full flex-col gap-5 overflow-hidden rounded-2xl border border-gray-900/50 bg-linear-to-br from-zinc-800 to-zinc-950 p-8;
+    @apply flex flex-col gap-6 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-8;
   }
 
   .ask-andrew-avatar {
-    @apply flex flex-col gap-4 sm:flex-row sm:items-center;
+    @apply flex flex-col gap-4 border-b border-zinc-800 pb-5 sm:flex-row sm:items-center sm:justify-between;
   }
 
   .ask-andrew-avatar .sprite-avatar {
-    @apply w-32 shrink-0 sm:w-36 lg:w-40;
+    @apply w-14 shrink-0 sm:w-16;
   }
 
   .ask-andrew-chat {
-    @apply flex min-h-0 flex-1 flex-col gap-4;
-  }
-
-  .ask-andrew-chat-top {
-    @apply flex min-h-6 items-center justify-between text-[0.68rem] uppercase tracking-[0.16em] text-zinc-500;
+    @apply flex flex-col gap-4;
   }
 
   .ask-andrew-session-actions {
     @apply flex items-center gap-2;
   }
 
-  .ask-andrew-quota {
-    @apply flex items-center gap-1;
-  }
-
-  .ask-andrew-quota-label {
-    @apply min-w-10 text-right text-[0.62rem] tracking-[0.08em] text-zinc-500;
-  }
-
-  .ask-andrew-quota__pip {
-    @apply size-1.5 rounded-sm border border-zinc-700 bg-zinc-900;
-  }
-
-  .ask-andrew-quota__pip--available {
-    @apply border-green-300/70 bg-green-300;
-  }
-
-  .ask-andrew-technical-notes {
-    @apply flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-zinc-800/80 py-2 text-[0.65rem] uppercase tracking-[0.1em] text-zinc-500;
+  .ask-andrew-conversation {
+    @apply min-h-64 rounded-xl border border-zinc-800 bg-zinc-950/70 p-4;
   }
 
   .ask-andrew-reset {
@@ -153,7 +133,7 @@ h4 {
   }
 
   .ask-andrew-messages {
-    @apply flex min-h-44 flex-1 flex-col gap-3 overflow-y-auto pr-1;
+    @apply flex min-h-52 max-h-96 flex-col gap-3 overflow-y-auto pr-1;
     scrollbar-color: rgb(134 239 172 / 0.65) rgb(39 39 42 / 0.55);
     scrollbar-width: thin;
   }
@@ -194,15 +174,15 @@ h4 {
   }
 
   .ask-andrew-prompts {
-    @apply grid grid-cols-1 gap-2 sm:grid-cols-2;
+    @apply flex flex-wrap gap-2;
   }
 
   .ask-andrew-chip {
-    @apply flex min-h-10 cursor-pointer items-center justify-between gap-2 rounded-lg border border-zinc-700/80 bg-black/30 px-3 py-2 text-left text-xs text-zinc-300 transition hover:border-green-300/60 hover:text-white disabled:cursor-not-allowed disabled:opacity-50;
+    @apply min-h-9 cursor-pointer rounded-full border border-zinc-700/80 bg-zinc-950/50 px-3 py-2 text-left text-xs text-zinc-300 transition hover:border-green-300/60 hover:text-white disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .ask-andrew-form {
-    @apply flex items-center gap-2 rounded-xl border border-zinc-700/80 bg-black/40 p-2;
+    @apply flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-950/70 p-2;
   }
 
   .ask-andrew-form input {

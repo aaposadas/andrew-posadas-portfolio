@@ -1,20 +1,39 @@
 "use client";
 
+import type { FormEvent } from "react";
 import { useState } from "react";
-import Image from "next/image";
-import { Linkedin, Facebook, Instagram, Mail, Github } from "lucide-react";
-import Link from "next/link";
+import { Facebook, Github, Instagram, Linkedin } from "lucide-react";
+
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/andrew-posadas-644065142/",
+    Icon: Linkedin,
+  },
+  { label: "GitHub", href: "https://github.com/aaposadas", Icon: Github },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/andrew.posadas.7/",
+    Icon: Facebook,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/andee_123/",
+    Icon: Instagram,
+  },
+];
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
+    companyWebsite: "",
   });
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setStatus("sending");
 
     try {
@@ -26,154 +45,188 @@ export default function Contact() {
 
       if (response.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+          companyWebsite: "",
+        });
       } else {
         setStatus("error");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
     }
   };
   return (
-    <main className="grid grid-cols-1 lg:grid-cols-6 gap-8 max-w-6xl mx-auto p-4">
-      <div className="lg:col-span-6 gap-2 flex flex-col">
-        <h2>
-          Let’s <span className="text-green-300">Connect</span>
-        </h2>
-        <span className="lg:w-10/12">
-          I enjoy hearing from others working to make technology more
-          approachable and effective. Whether you’re exploring ideas, need
-          technical perspective, or just want to compare notes, feel free to
-          reach out. I occasionally take on small, independent projects outside
-          my full-time role and am always open to meaningful conversations about
-          tech and impact.
-        </span>
-      </div>
-      <div className="card-base col-span-3 order-last flex flex-col items-center">
-        <Image
-          src="/contact-card2.png"
-          className="rounded-xl w-full h-auto"
-          width={400}
-          height={400}
-          alt="contact_card"
-        />
-        <div className="flex gap-2">
-          <Link
-            href="https://www.linkedin.com/in/andrew-posadas-644065142/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="rounded-full cursor-pointer border p-4 border-gray-800 bg-black hover:border-blue-500 hover:scale-110 transition-all group">
-              <Linkedin
-                size={32}
-                strokeWidth={1}
-                className="text-gray-400 group-hover:text-blue-500 transition-colors"
-              />
-            </button>
-          </Link>
-
-          <Link
-            href="https://github.com/aaposadas"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="rounded-full cursor-pointer border p-4 border-gray-800 bg-black hover:border-white hover:scale-110 transition-all group">
-              <Github
-                size={32}
-                strokeWidth={1}
-                className="text-gray-400 group-hover:text-white transition-colors"
-              />
-            </button>
-          </Link>
-
-          <Link
-            href="https://www.facebook.com/andrew.posadas.7/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="rounded-full cursor-pointer border p-4 border-gray-800 bg-black hover:border-blue-600 hover:scale-110 transition-all group">
-              <Facebook
-                size={32}
-                strokeWidth={1}
-                className="text-gray-400 group-hover:text-blue-600 transition-colors"
-              />
-            </button>
-          </Link>
-
-          <Link
-            href="https://www.instagram.com/andee_123/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="rounded-full cursor-pointer border p-4 border-gray-800 bg-black hover:border-pink-500 hover:scale-110 transition-all group">
-              <Instagram
-                size={32}
-                strokeWidth={1}
-                className="text-gray-400 group-hover:text-pink-500 transition-colors"
-              />
-            </button>
-          </Link>
-        </div>
-      </div>
-      <div className="col-span-3">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-300 mb-2">Name</label>
-            <input
-              type="text"
-              required
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-green-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-300 mb-2">Email</label>
-            <input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-green-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-300 mb-2">Message</label>
-            <textarea
-              required
-              rows={5}
-              value={formData.message}
-              onChange={(e) =>
-                setFormData({ ...formData, message: e.target.value })
-              }
-              className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-green-400"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={status === "sending"}
-            className="border border-green-300 cursor-pointer bg-green-300 text-black hover:bg-green-400 hover:border-green-400 px-6 py-3 rounded-lg transition-all font-medium"
-          >
-            {status === "sending" ? "Sending..." : "Send Message"}
-          </button>
-
-          {status === "success" && (
-            <p className="text-green-400">Message sent successfully!</p>
-          )}
-          {status === "error" && (
-            <p className="text-red-400">
-              Failed to send message. Please try again.
+    <main className="bg-zinc-950 px-4 pb-16 sm:px-6 sm:pb-24">
+      <section className="mx-auto max-w-6xl pt-4 sm:pt-6">
+        <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950 p-7 sm:p-10 lg:p-12">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgb(134_239_172_/_0.16),transparent_20rem)]" />
+          <div className="relative z-10 max-w-3xl">
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
+              Contact
             </p>
-          )}
+            <h1 className="mt-6 text-5xl tracking-[-0.05em] text-white sm:text-6xl lg:text-7xl">
+              Let&apos;s <span className="text-green-200">connect</span>.
+            </h1>
+            <p className="mt-6 text-base leading-7 text-zinc-300 sm:text-lg sm:leading-8">
+              Whether you&apos;re thinking about a role, a collaboration, or an
+              idea that involves technology, I&apos;d be glad to hear from you.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-6xl gap-5 pt-16 sm:pt-24 lg:grid-cols-12">
+        <aside className="relative isolate overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 via-zinc-900 to-green-950/25 p-7 sm:p-8 lg:col-span-4">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-20 -top-28 size-96 rounded-full border border-green-200/20"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-4 -top-12 size-64 rounded-full border border-green-200/15"
+          />
+          <div className="relative z-10 flex h-full flex-col">
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
+              Start a conversation
+            </p>
+            <h2 className="mt-3 text-3xl tracking-[-0.04em] text-white sm:text-4xl">
+              A real person will read your note.
+            </h2>
+            <p className="mt-5 text-base leading-7 text-zinc-300">
+              I value thoughtful conversations and clear communication. Send a
+              note with what&apos;s on your mind, and I&apos;ll get back to you.
+            </p>
+            <a
+              href="mailto:andrewposadas5@gmail.com"
+              className="mt-8 w-fit text-sm font-medium text-green-200 transition hover:text-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-200"
+            >
+              andrewposadas5@gmail.com
+            </a>
+            <div className="mt-auto pt-12">
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-zinc-500">
+                Elsewhere
+              </p>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {socialLinks.map(({ label, href, Icon }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="grid size-10 place-items-center rounded-full border border-zinc-700 bg-zinc-950/50 text-zinc-300 transition hover:border-green-200/70 hover:text-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-200"
+                    >
+                      <Icon size={18} aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </aside>
+
+        <form
+          onSubmit={handleSubmit}
+          className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-8 lg:col-span-8"
+        >
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
+            Send a message
+          </p>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-sm font-medium text-zinc-200" htmlFor="name">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                maxLength={160}
+                autoComplete="name"
+                value={formData.name}
+                onChange={(event) =>
+                  setFormData({ ...formData, name: event.target.value })
+                }
+                className="w-full rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-green-200 focus:ring-2 focus:ring-green-200/20"
+              />
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-zinc-200" htmlFor="email">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                maxLength={254}
+                autoComplete="email"
+                value={formData.email}
+                onChange={(event) =>
+                  setFormData({ ...formData, email: event.target.value })
+                }
+                className="w-full rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-green-200 focus:ring-2 focus:ring-green-200/20"
+              />
+            </div>
+          </div>
+          <div className="mt-6">
+            <label className="mb-2 block text-sm font-medium text-zinc-200" htmlFor="message">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows={7}
+              maxLength={5000}
+              value={formData.message}
+              onChange={(event) =>
+                setFormData({ ...formData, message: event.target.value })
+              }
+              className="w-full resize-y rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-green-200 focus:ring-2 focus:ring-green-200/20"
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden"
+          >
+            <label htmlFor="companyWebsite">Company website</label>
+            <input
+              id="companyWebsite"
+              name="companyWebsite"
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData.companyWebsite}
+              onChange={(event) =>
+                setFormData({ ...formData, companyWebsite: event.target.value })
+              }
+            />
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="rounded-full bg-green-200 px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-green-100 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-200"
+            >
+              {status === "sending" ? "Sending..." : "Send message"}
+            </button>
+            <div aria-live="polite" className="text-sm">
+              {status === "success" && (
+                <p className="text-green-200">Message sent successfully.</p>
+              )}
+              {status === "error" && (
+                <p className="text-red-300">
+                  Failed to send your message. Please try again.
+                </p>
+              )}
+            </div>
+          </div>
         </form>
-      </div>
+      </section>
     </main>
   );
 }

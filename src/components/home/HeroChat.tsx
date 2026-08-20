@@ -2,7 +2,7 @@
 
 import type { FormEvent, MutableRefObject } from "react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, RotateCcw, SendHorizontal } from "lucide-react";
+import { RotateCcw, SendHorizontal } from "lucide-react";
 import SpriteAvatar, { type SpriteState } from "@/components/SpriteAvatar";
 import {
   createChatMessage,
@@ -11,7 +11,7 @@ import {
   type ChatMessage,
 } from "@/components/home/heroChatContent";
 import { useIdleSpriteVariant } from "@/components/home/useIdleSpriteVariant";
-import { CHAT_MODEL_FALLBACK, CHAT_VISIT_QUOTA } from "@/lib/chatConfig";
+import { CHAT_VISIT_QUOTA } from "@/lib/chatConfig";
 
 const SPEAKING_DURATION_MS = 900;
 const CHAT_REQUEST_TIMEOUT_MS = 30_000;
@@ -30,7 +30,6 @@ export default function HeroChat() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [remaining, setRemaining] = useState<number | null>(null);
-  const [model, setModel] = useState(CHAT_MODEL_FALLBACK);
   const speakingTimer = useRef<number | null>(null);
   const chatRequest = useRef<AbortController | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -51,13 +50,9 @@ export default function HeroChat() {
 
     fetch("/api/chat")
       .then((response) => response.json())
-      .then((result: { remaining?: number; model?: string }) => {
+      .then((result: { remaining?: number }) => {
         if (isActive && typeof result.remaining === "number") {
           setRemaining(result.remaining);
-        }
-
-        if (isActive && result.model) {
-          setModel(result.model);
         }
       })
       .catch(() => {});
@@ -144,13 +139,13 @@ export default function HeroChat() {
         setIsSpeaking(false);
       }, SPEAKING_DURATION_MS);
     } catch (error) {
-        if (
-          error instanceof DOMException &&
-          error.name === "AbortError" &&
-          !didTimeout
-        ) {
-          return;
-        }
+      if (
+        error instanceof DOMException &&
+        error.name === "AbortError" &&
+        !didTimeout
+      ) {
+        return;
+      }
 
       setIsThinking(false);
       setIsSpeaking(false);
@@ -192,83 +187,64 @@ export default function HeroChat() {
   return (
     <section className="ask-andrew-card">
       <div className="ask-andrew-avatar">
-        <SpriteAvatar state={spriteState} />
-        <div>
-          <span className="text-xs uppercase tracking-[0.18em] text-green-200">
-            Hey, I&apos;m Andrew
+        <div className="flex items-center gap-4">
+          <SpriteAvatar state={spriteState} />
+          <div>
+            <span className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200">
+              Portfolio assistant
+            </span>
+            <p className="mt-1 text-sm text-zinc-400">
+              Ask about my work, stack, or approach.
+            </p>
+          </div>
+        </div>
+        <div className="ask-andrew-session-actions">
+          <span className="rounded-full border border-zinc-700 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-zinc-400">
+            OpenAI API
           </span>
-          <h2 className="text-3xl">Where should we start?</h2>
+          <span
+            aria-label={`${remaining ?? CHAT_VISIT_QUOTA} of ${CHAT_VISIT_QUOTA} questions remaining this visit`}
+            className="text-[0.68rem] font-medium text-zinc-500"
+          >
+            {remaining ?? "..."} / {CHAT_VISIT_QUOTA} left
+          </span>
+          {messages.length > 1 && (
+            <button
+              aria-label="Reset chat"
+              className="ask-andrew-reset"
+              onClick={resetChat}
+              type="button"
+            >
+              <RotateCcw size={14} />
+            </button>
+          )}
         </div>
       </div>
 
       <div className="ask-andrew-chat">
-        <div className="ask-andrew-chat-top">
-          <span>Session chat</span>
-          <div className="ask-andrew-session-actions">
-            <div
-              aria-label={`${remaining ?? 0} of ${CHAT_VISIT_QUOTA} chat turns remaining this visit`}
-              aria-valuemax={CHAT_VISIT_QUOTA}
-              aria-valuemin={0}
-              aria-valuenow={remaining ?? 0}
-              className="ask-andrew-quota"
-              role="progressbar"
-              title={`${remaining ?? "Loading"} of ${CHAT_VISIT_QUOTA} chat turns remaining this visit`}
-            >
-              {Array.from({ length: CHAT_VISIT_QUOTA }, (_, index) => (
-                <span
-                  className={
-                    index < (remaining ?? 0)
-                      ? "ask-andrew-quota__pip ask-andrew-quota__pip--available"
-                      : "ask-andrew-quota__pip"
-                  }
-                  key={index}
-                />
-              ))}
-            </div>
-            <span className="ask-andrew-quota-label">
-              {remaining ?? "..."} left
-            </span>
-            {messages.length > 1 && (
-              <button
-                aria-label="Reset chat"
-                className="ask-andrew-reset"
-                onClick={resetChat}
-                type="button"
+        <div className="ask-andrew-conversation">
+          <div
+            aria-busy={isThinking}
+            aria-label="Ask Andrew conversation"
+            aria-live="polite"
+            className="ask-andrew-messages"
+          >
+            {messages.map((message) => (
+              <div
+                className={`ask-andrew-message ask-andrew-message--${message.role}`}
+                key={message.id}
               >
-                <RotateCcw size={14} />
-              </button>
+                {message.content}
+              </div>
+            ))}
+
+            {isThinking && (
+              <div className="ask-andrew-message ask-andrew-message--andrew">
+                Thinking through that...
+              </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
-        </div>
-
-        <div className="ask-andrew-technical-notes" aria-label="Chat details">
-          <span>OpenAI API</span>
-          <span>{model}</span>
-          <span>Portfolio context</span>
-          <span>{CHAT_VISIT_QUOTA} turns per visit</span>
-        </div>
-
-        <div
-          aria-busy={isThinking}
-          aria-label="Ask Andrew conversation"
-          aria-live="polite"
-          className="ask-andrew-messages"
-        >
-          {messages.map((message) => (
-            <div
-              className={`ask-andrew-message ask-andrew-message--${message.role}`}
-              key={message.id}
-            >
-              {message.content}
-            </div>
-          ))}
-
-          {isThinking && (
-            <div className="ask-andrew-message ask-andrew-message--andrew">
-              Thinking through that...
-            </div>
-          )}
-          <div ref={messagesEndRef} />
         </div>
 
         <div className="ask-andrew-prompts" aria-label="Suggested prompts">
@@ -281,7 +257,6 @@ export default function HeroChat() {
               type="button"
             >
               <span>{prompt}</span>
-              <ArrowRight size={14} />
             </button>
           ))}
         </div>
