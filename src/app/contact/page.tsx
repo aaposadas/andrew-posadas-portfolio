@@ -81,8 +81,8 @@ export default function Contact() {
         </Reveal>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-5 pt-16 sm:pt-24 lg:grid-cols-12">
-        <RevealGroup className="contents">
+      <section className="mx-auto max-w-6xl pt-16 sm:pt-24">
+        <RevealGroup className="grid gap-5 lg:grid-cols-12">
           <RevealItem className="lg:col-span-4">
             <aside className="relative isolate h-full overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 via-zinc-900 to-green-950/25 p-7 sm:p-8">
           <div
