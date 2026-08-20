@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Reveal } from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 
 const sectionClassName = "mx-auto max-w-6xl pt-16 sm:pt-24";
@@ -9,14 +10,15 @@ export default function About() {
   return (
     <main className="bg-zinc-950 px-4 pb-16 sm:px-6 sm:pb-24">
       <section className="mx-auto max-w-6xl pt-4 sm:pt-6">
-        <div className="relative min-h-[34rem] overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 sm:min-h-[38rem]">
+        <Reveal>
+          <div className="relative min-h-[34rem] overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 sm:min-h-[38rem]">
           <Image
-            src="/andrew-family.jpg"
+            src="/andrew-family-hero.jpg"
             alt="Andrew Posadas with his wife and daughter"
             fill
             priority
-            unoptimized
             className="object-cover object-[58%_20%]"
+            quality={85}
             sizes="(min-width: 1280px) 1152px, (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
           />
           <div className="absolute inset-0 bg-linear-to-r from-zinc-950/90 via-zinc-950/60 to-zinc-950/10" />
@@ -25,11 +27,12 @@ export default function About() {
               Working with <span className="text-green-200">real</span> people.
             </h1>
           </div>
-        </div>
+          </div>
+        </Reveal>
       </section>
 
       <section className={sectionClassName}>
-        <div className={bodyCopyClassName}>
+        <Reveal className={bodyCopyClassName}>
           <p>
             A goal of mine is that in every project, I connect with the very
             real people affected by the work. I am continuously striving to
@@ -57,27 +60,30 @@ export default function About() {
             promised to always take a human approach to technology and put
             empathy and collaboration over returns and processes.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       <section className={sectionClassName}>
-        <figure className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-10 lg:p-12">
+        <Reveal>
+          <figure className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-10 lg:p-12">
           <blockquote className="max-w-4xl font-[family-name:var(--font-montserrat)] text-3xl font-bold leading-tight tracking-[-0.045em] text-white sm:text-4xl lg:text-5xl">
             “I love moments of{" "}
             <span className="text-green-200">connection and relationship</span>
             , where we are able to see each other as people and work together
             toward an end goal.”
           </blockquote>
-        </figure>
+          </figure>
+        </Reveal>
       </section>
 
       <section className={sectionClassName}>
-        <SectionHeading
-          eyebrow="Where it started"
-          title="Helping people make technology work."
-        />
-        <div className={`mt-8 ${bodyCopyClassName}`}>
-          <p>
+        <Reveal>
+          <SectionHeading
+            eyebrow="Where it started"
+            title="Helping people make technology work."
+          />
+          <div className={`mt-8 ${bodyCopyClassName}`}>
+            <p>
             I remember as a teenager, I would help friends with their websites,
             and growing up with first-generation Hispanic parents, I became
             family tech support. It has always been a part of me to help others
@@ -88,12 +94,14 @@ export default function About() {
             establish my career as an IT expert. Now, after four years of
             consulting and providing support at an enterprise level, it is my
             goal to continue making technology feel approachable and empowering.
-          </p>
-        </div>
+            </p>
+          </div>
+        </Reveal>
       </section>
 
       <section className={sectionClassName}>
-        <div className="relative isolate overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 via-zinc-900 to-green-950/35 p-7 sm:p-10 lg:p-12">
+        <Reveal>
+          <div className="relative isolate overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 via-zinc-900 to-green-950/35 p-7 sm:p-10 lg:p-12">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-20 -top-28 size-96 rounded-full border border-green-200/20"
@@ -134,7 +142,8 @@ export default function About() {
               </Link>
             </div>
           </div>
-        </div>
+          </div>
+        </Reveal>
       </section>
     </main>
   );

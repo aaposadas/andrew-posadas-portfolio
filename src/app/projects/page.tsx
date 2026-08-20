@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 
 type Project = {
   title: string;
@@ -101,24 +102,36 @@ export default function Works() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
       <section aria-labelledby="production-heading">
-        <div className="projects-section-heading">
+        <Reveal className="projects-section-heading">
           <div>
             <p className="projects-kicker">On the web</p>
             <h2 id="production-heading">Featured production work</h2>
           </div>
           <p>Live, public-facing experiences built to be useful every day.</p>
-        </div>
-        <div className="mt-6 grid gap-5 lg:grid-cols-2">{featured.map((project) => <ProjectCard key={project.title} project={project} />)}</div>
+        </Reveal>
+        <RevealGroup className="mt-6 grid gap-5 lg:grid-cols-2">
+          {featured.map((project) => (
+            <RevealItem key={project.title}>
+              <ProjectCard project={project} />
+            </RevealItem>
+          ))}
+        </RevealGroup>
       </section>
 
       <section className="mt-16 sm:mt-24" aria-labelledby="archive-heading">
-        <div className="projects-section-heading projects-section-heading--archive">
+        <Reveal className="projects-section-heading projects-section-heading--archive">
           <div>
             <p className="projects-kicker">More work</p>
             <h2 id="archive-heading">Product experiments &amp; applications</h2>
           </div>
-        </div>
-        <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{archive.map((project) => <ProjectCard key={project.title} project={project} />)}</div>
+        </Reveal>
+        <RevealGroup className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {archive.map((project) => (
+            <RevealItem key={project.title}>
+              <ProjectCard project={project} />
+            </RevealItem>
+          ))}
+        </RevealGroup>
       </section>
     </main>
   );

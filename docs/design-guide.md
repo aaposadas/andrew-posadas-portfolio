@@ -87,7 +87,7 @@ Use this pattern for employer-facing experience pages. The intent is to establis
 Use this pattern for an About page or other page where Andrew's perspective is central.
 
 - **Title-only personal hero:** use the shared `max-w-6xl` frame, `rounded-2xl`, `border-zinc-800`, and a contained personal photo. The hero title sits at the lower left with `p-7 sm:p-10 lg:p-12`. Keep the title-only treatment deliberately spare: do not add an eyebrow or supporting paragraph inside it.
-- **Image treatment:** a left-to-right zinc overlay protects title legibility without obscuring the people in the photo. Preserve faces within the crop and use `unoptimized` for supplied photography when the optimized image visibly reduces quality.
+- **Image treatment:** a left-to-right zinc overlay protects title legibility without obscuring the people in the photo. Preserve faces within the crop, provide an appropriately sized source asset, and use Next image optimization with an explicit `sizes` value and quality setting.
 - **Opening narrative:** begin beneath the hero in the standard section frame. The first paragraph uses the full content width at `text-base leading-8 text-zinc-300 sm:text-lg`, rather than an artificially narrow reading column.
 - **Story chapters:** after the opening paragraph, separate ideas with `mt-12` and use the approved standard heading pattern. Use `mt-6` before the supporting copy.
 - **Pull quote:** a single key line may appear in a `rounded-2xl border border-zinc-800 bg-zinc-900/60` surface with `p-7 sm:p-10 lg:p-12`. Use Montserrat, `text-3xl sm:text-4xl lg:text-5xl`, and green only on the meaningful phrase.
@@ -123,6 +123,13 @@ Use this pattern for an About page or other page where Andrew's perspective is c
 - Footer repeats the site frame, uses a top border, and stays visually quiet.
 - Footer uses a simple responsive layout: identity on the left and copyright on the right. Keep navigation in the header only, and do not include deprecated or private routes.
 
+### Motion
+
+- Use the shared reveal primitives for a subtle `18px` upward slide and fade as a section or row enters view.
+- Stagger adjacent cards by `80ms`; keep each reveal to `450ms` with a calm ease-out curve.
+- Animate rows and supporting content, not every individual word or control. Motion should reinforce page rhythm without competing with the content.
+- Respect `prefers-reduced-motion`: revealed content remains immediately visible and does not move.
+
 ## Rules for future work
 
 1. Start with existing tokens and component classes; add a new primitive only when existing ones cannot solve the problem.
@@ -134,3 +141,4 @@ Use this pattern for an About page or other page where Andrew's perspective is c
 7. Validate at mobile and desktop breakpoints before merging UI work.
 8. For a personal page, use the title-only hero and narrative rules above instead of repeating the homepage split hero.
 9. For professional pages, use the experience patterns above and keep evidence, chronology, and next steps more prominent than services language.
+10. Use optimized source images and explicit responsive sizes for all large photography.

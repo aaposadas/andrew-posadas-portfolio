@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 
 const certifications = [
@@ -55,7 +56,8 @@ export default function Experience() {
   return (
     <main className="bg-zinc-950 px-4 pb-16 sm:px-6 sm:pb-24">
       <section className="mx-auto max-w-6xl pt-4 sm:pt-6">
-        <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950 p-7 sm:p-10 lg:p-12">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950 p-7 sm:p-10 lg:p-12">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgb(134_239_172_/_0.16),transparent_20rem)]" />
           <div
             aria-hidden="true"
@@ -79,19 +81,20 @@ export default function Experience() {
               Currently: Technical Analyst III at Valorem Reply
             </p>
           </div>
-        </div>
+          </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-10 border-b border-zinc-800 py-16 sm:py-24 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-5">
+        <Reveal className="lg:col-span-5">
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
             Professional snapshot
           </p>
           <h2 className="mt-3 text-3xl tracking-[-0.04em] text-white sm:text-4xl">
             Bridging support, engineering, and AI.
           </h2>
-        </div>
-        <div className="space-y-6 text-base leading-8 text-zinc-300 lg:col-span-6 lg:col-start-7 lg:text-lg">
+        </Reveal>
+        <Reveal className="space-y-6 text-base leading-8 text-zinc-300 lg:col-span-6 lg:col-start-7 lg:text-lg">
           <p>
             My work sits at the point where people&apos;s needs meet the systems
             behind them. I translate complex issues into clear next steps,
@@ -106,7 +109,7 @@ export default function Experience() {
             infrastructure, Microsoft 365, security, and the day-to-day
             technology an organization depends on.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       <section className={sectionClassName}>
@@ -117,9 +120,9 @@ export default function Experience() {
           variant="split"
         />
 
-        <ol className="divide-y divide-zinc-800">
+        <RevealGroup as="ol" className="divide-y divide-zinc-800">
           {roles.map((role) => (
-            <li key={`${role.company}-${role.title}`} className="grid gap-6 py-8 sm:py-12 lg:grid-cols-12 lg:gap-10">
+            <RevealItem as="li" key={`${role.company}-${role.title}`} className="grid gap-6 py-8 sm:py-12 lg:grid-cols-12 lg:gap-10">
               <div className="lg:col-span-3">
                 <p className="text-sm text-green-200">{role.dates}</p>
                 <p className="mt-1 text-sm text-zinc-500">{role.location}</p>
@@ -135,9 +138,9 @@ export default function Experience() {
                   ))}
                 </ul>
               </div>
-            </li>
+            </RevealItem>
           ))}
-        </ol>
+        </RevealGroup>
       </section>
 
       <section className={sectionClassName}>
@@ -153,9 +156,10 @@ export default function Experience() {
             <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
               Certifications
             </p>
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            <RevealGroup as="ul" className="mt-6 grid gap-4 sm:grid-cols-2">
               {certifications.map((certification) => (
-                <li
+                <RevealItem
+                  as="li"
                   key={certification.name}
                   className={`group relative isolate overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 transition hover:-translate-y-1 hover:border-green-200/40 hover:bg-zinc-900 sm:p-7 ${
                     certification.featured ? "sm:col-span-2" : ""
@@ -175,12 +179,12 @@ export default function Experience() {
                       {certification.provider}
                     </p>
                   </div>
-                </li>
+                </RevealItem>
               ))}
-            </ul>
+            </RevealGroup>
           </div>
 
-          <div className="lg:col-span-4">
+          <Reveal className="lg:col-span-4">
             <div className="h-full rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-8">
               <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
                 Education
@@ -191,12 +195,13 @@ export default function Experience() {
               <p className="mt-3 text-base text-zinc-300">Christ Mission College</p>
               <p className="mt-1 text-sm text-zinc-400">San Antonio, TX · May 2017</p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className={sectionClassName}>
-        <div className="relative isolate overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 via-zinc-900 to-green-950/35 p-7 sm:p-10 lg:p-12">
+        <Reveal>
+          <div className="relative isolate overflow-hidden rounded-2xl border border-zinc-800 bg-linear-to-br from-zinc-900 via-zinc-900 to-green-950/35 p-7 sm:p-10 lg:p-12">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-20 -top-28 size-96 rounded-full border border-green-200/20"
@@ -235,7 +240,8 @@ export default function Experience() {
               </Link>
             </div>
           </div>
-        </div>
+          </div>
+        </Reveal>
       </section>
     </main>
   );

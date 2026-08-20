@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HeroChat from "@/components/home/HeroChat";
 import HomeScrollReset from "@/components/home/HomeScrollReset";
+import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import type { IconType } from "react-icons";
 import { DiMsqlServer } from "react-icons/di";
@@ -142,8 +143,9 @@ export default function Home() {
               alt="Andrew Posadas outdoors in West Texas"
               fill
               priority
-              unoptimized
               className="object-cover object-[64%_center]"
+              quality={85}
+              sizes="(min-width: 1024px) 50vw, 100vw"
             />
             <div className="absolute inset-0 bg-linear-to-t from-zinc-950/80 via-zinc-950/10 to-zinc-950/10" />
           </div>
@@ -159,24 +161,23 @@ export default function Home() {
           title="What I bring to the work"
         />
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <RevealGroup className="mt-8 grid gap-4 md:grid-cols-3">
           {strengths.map((strength) => (
-            <article
-              key={strength.number}
-              className="flex min-h-64 flex-col rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-8"
-            >
-              <p className="text-[0.68rem] font-bold tracking-[0.18em] text-green-200/85">
-                {strength.number}
-              </p>
-              <h3 className="mt-12 text-2xl tracking-[-0.035em] text-white">
-                {strength.title}
-              </h3>
-              <p className="mt-4 text-sm leading-6 text-zinc-400">
-                {strength.description}
-              </p>
-            </article>
+            <RevealItem key={strength.number}>
+              <article className="flex min-h-64 flex-col rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-8">
+                <p className="text-[0.68rem] font-bold tracking-[0.18em] text-green-200/85">
+                  {strength.number}
+                </p>
+                <h3 className="mt-12 text-2xl tracking-[-0.035em] text-white">
+                  {strength.title}
+                </h3>
+                <p className="mt-4 text-sm leading-6 text-zinc-400">
+                  {strength.description}
+                </p>
+              </article>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </section>
 
       <section className="mx-auto max-w-6xl pt-16 sm:pt-24">
@@ -187,9 +188,9 @@ export default function Home() {
           variant="split"
         />
 
-        <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+        <RevealGroup as="dl" className="mt-4 grid gap-4 sm:grid-cols-3">
           {metrics.map((metric) => (
-            <div
+            <RevealItem
               key={metric.label}
               className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 sm:p-8"
             >
@@ -199,10 +200,10 @@ export default function Home() {
               <dt className="mt-3 text-sm font-medium text-zinc-300">
                 {metric.label}
               </dt>
-            </div>
+            </RevealItem>
           ))}
-        </dl>
-        <div className="mt-10 border-t border-zinc-800 pt-8 sm:mt-12">
+        </RevealGroup>
+        <Reveal className="mt-10 border-t border-zinc-800 pt-8 sm:mt-12">
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
             Tools &amp; platforms
           </p>
@@ -225,7 +226,7 @@ export default function Home() {
               );
             })}
           </ul>
-        </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-6xl pt-16 sm:pt-24">
@@ -236,66 +237,69 @@ export default function Home() {
           variant="split"
         />
 
-        <div className="mt-6 grid gap-5 lg:grid-cols-2">
+        <RevealGroup className="mt-6 grid gap-5 lg:grid-cols-2">
           {featuredProjects.map((project) => (
-            <Link
-              key={project.title}
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-card group project-card--featured"
-            >
-              <div
-                className="project-card__image"
-                style={{
-                  backgroundImage: `url(${project.image})`,
-                  backgroundPosition: project.imagePosition ?? "center",
-                }}
-              />
-              <div className="project-card__wash" />
-              <div className="project-card__content">
-                <p className="project-card__eyebrow">{project.eyebrow}</p>
-                <div className="mt-auto">
-                  <h3 className="max-w-md text-3xl tracking-[-0.04em] text-white">
-                    {project.title}
-                  </h3>
-                  <p className="mt-3 max-w-lg text-sm leading-6 text-zinc-200">
-                    {project.description}
-                  </p>
-                  <span className="mt-5 inline-block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-green-200">
-                    Visit site
-                  </span>
+            <RevealItem key={project.title}>
+              <Link
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-card group project-card--featured"
+              >
+                <div
+                  className="project-card__image"
+                  style={{
+                    backgroundImage: `url(${project.image})`,
+                    backgroundPosition: project.imagePosition ?? "center",
+                  }}
+                />
+                <div className="project-card__wash" />
+                <div className="project-card__content">
+                  <p className="project-card__eyebrow">{project.eyebrow}</p>
+                  <div className="mt-auto">
+                    <h3 className="max-w-md text-3xl tracking-[-0.04em] text-white">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 max-w-lg text-sm leading-6 text-zinc-200">
+                      {project.description}
+                    </p>
+                    <span className="mt-5 inline-block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-green-200">
+                      Visit site
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-10 border-y border-zinc-800 py-16 sm:py-24 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-5">
-          <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
-            How I work
-          </p>
-          <h2 className="mt-3 text-3xl tracking-[-0.04em] text-white sm:text-4xl">
-            Good technology starts with listening.
-          </h2>
-        </div>
-        <div className="space-y-6 text-base leading-8 text-zinc-300 lg:col-span-6 lg:col-start-7 lg:text-lg">
-          <p>
-            From leading IT at Christ Mission College to supporting enterprise
-            clients at Valorem Reply, I&apos;ve learned that the best technical
-            work starts by understanding the people behind the need. I bring
-            patience, clear communication, and practical follow-through to
-            work that can otherwise feel complicated or out of reach.
-          </p>
-          <p>
-            Whether I&apos;m helping a team navigate a system, shape a new idea,
-            or build for the web, my goal is to make the next step
-            understandable and achievable.
-          </p>
-        </div>
-      </section>
+      <Reveal className="mx-auto max-w-6xl">
+        <section className="grid gap-10 border-y border-zinc-800 py-16 sm:py-24 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
+              How I work
+            </p>
+            <h2 className="mt-3 text-3xl tracking-[-0.04em] text-white sm:text-4xl">
+              Good technology starts with listening.
+            </h2>
+          </div>
+          <div className="space-y-6 text-base leading-8 text-zinc-300 lg:col-span-6 lg:col-start-7 lg:text-lg">
+            <p>
+              From leading IT at Christ Mission College to supporting enterprise
+              clients at Valorem Reply, I&apos;ve learned that the best technical
+              work starts by understanding the people behind the need. I bring
+              patience, clear communication, and practical follow-through to
+              work that can otherwise feel complicated or out of reach.
+            </p>
+            <p>
+              Whether I&apos;m helping a team navigate a system, shape a new idea,
+              or build for the web, my goal is to make the next step
+              understandable and achievable.
+            </p>
+          </div>
+        </section>
+      </Reveal>
 
       <section className="mx-auto max-w-6xl pt-16 sm:pt-24">
         <SectionHeading
@@ -303,19 +307,19 @@ export default function Home() {
           title="Ask about the work behind this site."
           description="This portfolio includes a small AI assistant built with the OpenAI API and context about my background, projects, and technical approach. It is an example of the kind of practical, thoughtful AI experience I can implement."
         />
-        <div className="mt-8">
+        <Reveal className="mt-8">
           <HeroChat />
-        </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-6xl pt-16 sm:pt-24">
-        <div className="relative min-h-[26rem] overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/60">
+        <Reveal className="relative min-h-[26rem] overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/60">
           <Image
             src="/coffee-connect.png"
             alt=""
             fill
-            unoptimized
             className="pointer-events-none object-cover object-[50%_56%] brightness-[0.65]"
+            quality={80}
             sizes="(min-width: 1280px) 1152px, (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
           />
           <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-zinc-950/65 via-zinc-950/25 to-transparent" />
@@ -332,7 +336,7 @@ export default function Home() {
               Get in touch
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );
