@@ -1,4 +1,4 @@
-import { BadgeInfo, FileCode2, CloudCog, Database } from "lucide-react";
+import { BadgeInfo, FileCode2, CloudCog } from "lucide-react";
 import Link from "next/link";
 
 export default function ServicesCard() {
