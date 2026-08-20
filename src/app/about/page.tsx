@@ -11,12 +11,12 @@ export default function About() {
       <section className="mx-auto max-w-6xl pt-4 sm:pt-6">
         <div className="relative min-h-[34rem] overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 sm:min-h-[38rem]">
           <Image
-            src="/andrew-family.jpg"
+            src="/andrew-family-hero.jpg"
             alt="Andrew Posadas with his wife and daughter"
             fill
             priority
-            unoptimized
             className="object-cover object-[58%_20%]"
+            quality={85}
             sizes="(min-width: 1280px) 1152px, (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
           />
           <div className="absolute inset-0 bg-linear-to-r from-zinc-950/90 via-zinc-950/60 to-zinc-950/10" />

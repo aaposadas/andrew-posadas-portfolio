@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Check } from "lucide-react";
+import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 
 const colors = [
   ["Canvas", "zinc-950", "bg-zinc-950 border-zinc-700"],
@@ -45,6 +46,41 @@ export default function DesignGuide() {
           <div className="rounded-2xl border border-zinc-800/80 bg-linear-to-br from-zinc-800 to-zinc-950 p-6 sm:p-7"><p className="text-sm font-semibold text-white">Actions</p><div className="mt-5 flex flex-wrap gap-3"><button className="inline-flex min-h-11 items-center justify-center rounded-full bg-green-200 px-5 py-3 text-sm font-bold text-black transition hover:bg-green-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-200 focus-visible:ring-offset-4 focus-visible:ring-offset-zinc-950" onClick={() => setAction("Primary action")}>Primary action</button><button className="inline-flex min-h-11 items-center justify-center rounded-full border border-zinc-700 bg-black/30 px-5 py-3 text-sm font-bold text-zinc-100 transition hover:border-green-200/60 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-200 focus-visible:ring-offset-4 focus-visible:ring-offset-zinc-950" onClick={() => setAction("Secondary action")}>Secondary action</button></div><p className="mt-5 text-sm text-zinc-400">Selected state: <span className="text-green-200">{action}</span></p></div>
           <form className="rounded-2xl border border-zinc-800/80 bg-linear-to-br from-zinc-800 to-zinc-950 p-6 sm:p-7" onSubmit={(event) => { event.preventDefault(); setSent(true); }}><label className="mb-2 block text-sm font-medium text-zinc-200" htmlFor="guide-email">Field control</label><input className="w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-green-200 focus:ring-2 focus:ring-green-200/20" id="guide-email" type="email" placeholder="you@example.com" /><button className="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl bg-green-200 px-5 py-3 text-sm font-bold text-black transition hover:bg-green-100" type="submit">Test form state</button>{sent && <p className="mt-3 flex items-center gap-2 text-sm text-green-200"><Check size={16} /> Clear feedback stays close to the action.</p>}</form>
         </div>
+      </section>
+
+      <section className="mt-16">
+        <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
+          Motion
+        </p>
+        <h2 className="mt-3 text-3xl tracking-[-0.04em] text-white">
+          Movement that supports the rhythm.
+        </h2>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-400">
+          Use a short fade and upward reveal when a row enters view. The
+          sequence is deliberate, restrained, and disabled for visitors who
+          prefer reduced motion.
+        </p>
+        <RevealGroup className="mt-8 grid gap-4 sm:grid-cols-3">
+          {["Section first", "Then the row", "Then the details"].map(
+            (label, index) => (
+              <RevealItem key={label}>
+                <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-green-200/85">
+                    0{index + 1}
+                  </p>
+                  <p className="mt-8 text-xl tracking-[-0.035em] text-white">
+                    {label}
+                  </p>
+                </div>
+              </RevealItem>
+            ),
+          )}
+        </RevealGroup>
+        <Reveal className="mt-5 border-t border-zinc-800 pt-5 text-sm leading-6 text-zinc-400">
+          Keep motion to a 450ms fade-and-slide, with an 80ms stagger across a
+          row. Do not animate every element or override a visitor&apos;s reduced-
+          motion preference.
+        </Reveal>
       </section>
 
       <section className="mt-16">
@@ -354,8 +390,8 @@ export default function DesignGuide() {
             src="/coffee-connect.png"
             alt=""
             fill
-            unoptimized
             className="pointer-events-none object-cover object-[50%_56%] brightness-[0.65]"
+            quality={80}
             sizes="(min-width: 1280px) 1152px, (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
           />
           <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-zinc-950/65 via-zinc-950/25 to-transparent" />
